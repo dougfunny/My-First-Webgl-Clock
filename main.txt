@@ -1,0 +1,225 @@
+<!DOCTYPE HTML>
+<html>
+   <head>
+ 
+       <script src="kinetic-v1.0.0.js">
+       </script>
+       <script
+src="http://www.html5canvastutorials.com/libraries/kinetic2d-v1.0.2.js">
+       </script>
+       <script>
+ 
+ 
+           var kin;
+           var myLine;
+var Theta = 0;
+ 
+ 
+           function Circle(Centerx, Centery, radius){
+               this.Centerx = Centerx;
+               this.Centery = Centery;
+               this.radius = radius;
+ 
+           }
+ 
+             function Line(a, b, Lwidth, Lheight, LborderWidth){
+               this.a = a;
+               this.b = b;
+               this.Lwidth = Lwidth;
+               this.Lheight = Lheight;
+               this.LborderWidth = LborderWidth;
+ 
+ 
+ 
+var x = r * Math.cos(angle);
+var y = r * Math.sin(angle);
+ 
+var r = Math.sqrt((x*x) + (y*y));
+var angle =   Math.atan2(y/x);
+ 
+           }
+ 
+ 
+ 
+ 
+           function updateStage(){
+        var RArmamplitude = 19;
+        var RArmy = 0;
+        var period = 500; // in ms
+        RArmy = kin.getCanvas().height / 2 - myArm.Lheight / 2;
+        var nextX = RArmamplitude * Math.sin(kin.getTime() * 2 * Math.PI / period)+ RArmy;
+        myArm.Lheight = nextX;
+        var LArmamplitude = 19;
+        var LeftArmy = 0;
+        LeftArmy = kin.getCanvas().height / 2 - myArm2.Lheight / 2;
+        var nextXL = LArmamplitude * Math.sin(kin.getTime() * 2 * Math.PI / period)+ LeftArmy;
+        myArm2.Lheight = nextXL;
+        var Baramplitude = 19;
+        var Bary = 0;
+        Bary  = kin.getCanvas().height / 2 - myLine.Lheight / 2;
+        var nextXB = LArmamplitude * Math.sin(kin.getTime() * 2 * Math.PI / period)+ Bary;
+        myLine.Lheight = nextXB;
+        var Baramplitude = 19;
+        var Bar2y = 0;
+        Bar2y  = kin.getCanvas().height / 2 - myLine.Lheight / 2;
+        var nextXB2 = LArmamplitude * Math.sin(kin.getTime() * 2 * Math.PI / period)+ Bar2y;
+        myLine.b= nextXB2;
+        var Circleamplitude = 19;
+        var Circley = 0;
+        Circley  = kin.getCanvas().height / 2 - myRCircle.Centery / 2;
+        var nextCircle = Circleamplitude * Math.sin(kin.getTime() * 2 * Math.PI / period)+ Circley;
+        myRCircle.Centery= nextCircle;
+        var Circleamplitude2 = 19;
+        var Circley2 = 0;
+        Circley2  = kin.getCanvas().height / 2 - myLCircle.Centery / 2;
+        var nextCircle = Circleamplitude * Math.sin(kin.getTime() * 2 * Math.PI / period)+ Circley2;
+        myLCircle.Centery= nextCircle;
+       
+               
+ 
+ 
+ 
+           }
+ 
+               window.onload = function(){
+               var canvas = document.getElementById("myCanvas");
+               var context = canvas.getContext("2d");
+ 
+ 
+               kin = new Kinetic_2d("myCanvas");
+                myLCircle = new Circle(50,175,20);
+                myRCircle = new Circle(280,175,20);
+                myLine    = new Line(50,180,280,180,5 );
+ 		myArm     = new Line(185,220,230,200,1 );
+		myArm2    = new Line(150 ,220 ,100 ,200  ,1);
+ 
+               // set drawStage method
+               kin.setDrawStage(function(){
+ 
+ 
+updateStage();
+kin.clear();
+var context = kin.getContext();
+ 
+//BarBell
+   context.beginPath();
+   context.lineWidth = myLine.LborderWidth;
+   context.moveTo(myLine.a,myLine.b);
+   context.lineTo( myLine.Lwidth, myLine.Lheight);
+   context.stroke();
+ 
+//RightArm
+ 
+   context.beginPath();
+   context.lineWidth = myArm.LborderWidth;
+   context.moveTo(myArm.a,myArm.b);
+   context.lineTo( myArm.Lwidth, myArm.Lheight);
+   context.stroke();
+ 
+//leftArm
+   context.beginPath();
+   context.lineWidth = myArm2.LborderWidth;
+   context.moveTo(myArm2.a,myArm2.b);
+   context.lineTo( myArm2.Lwidth, myArm2.Lheight);
+   context.stroke();
+ 
+ 
+ 
+ 
+ 
+ 
+//leftWeight
+   var centerX1 = myLCircle.Centerx;
+   var centerY2 = myLCircle.Centery;
+   var radius =   myLCircle.radius;
+ 
+   context.beginPath();
+   context.arc(centerX1, centerY2, radius, 0, 2 * Math.PI, false);
+ 
+   context.fillStyle = "grey";
+   context.fill();
+   context.lineWidth = 3;
+   context.strokeStyle = "black";
+   context.stroke();
+ 
+ 
+//rightWeight
+   var centerX1 = myRCircle.Centerx;
+   var centerY2 = myRCircle.Centery;
+   var radius =   myRCircle.radius;
+ 
+   context.beginPath();
+   context.arc(centerX1, centerY2, radius, 0, 2 * Math.PI, false);
+   context.fillStyle = "grey";
+   context.fill();
+   context.lineWidth = 3;
+   context.strokeStyle = "black";
+   context.stroke();
+ 
+ 
+ 
+ 
+               var topLeftCornerX = 150;
+               var topLeftCornerY = 200;
+               var width = 35;
+               var height = 70;
+ 
+context.beginPath();
+context.rect(topLeftCornerX, topLeftCornerY, width, height);
+context.lineWidth = 1;
+context.fillStyle = "black";
+   context.fill();
+context.strokeStyle = "black";
+context.stroke();
+ 
+ 
+ 
+ 
+ 
+//head
+   var centerX = 168;
+   var centerY = 175;
+   var radius = 20;
+ 
+   context.beginPath();
+   context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+ 
+   context.fillStyle = "black";
+   context.fill();
+   context.lineWidth = 1;
+   context.strokeStyle = "black";
+   context.stroke();
+ 
+ 
+ 
+//leftLeg
+ 
+   context.moveTo(160,270);
+   context.lineTo( 160, 350);
+   context.lineWidth = 1;
+   context.stroke();
+//rightLeg
+ 
+   context.moveTo(175,270);
+   context.lineTo(175, 350);
+ context.strokeStyle = "black";
+   context.stroke();
+   context.lineWidth = 1;
+   context.stroke();
+ 
+               });
+               kin.startAnimation();
+           };
+           </script>
+</head>
+<body onmousedown="return false;">
+<canvas id="myCanvas" width="508" height="540">
+</canvas>
+</body>
+</html>
+ 
+<!-- www.000webhost.com Analytics Code -->
+<script type="text/javascript" src="http://analytics.hosting24.com/count.php"></script>
+<noscript><a href="http://www.hosting24.com/"><img src="http://analytics.hosting24.com/count.php" alt="web hosting" /></a></noscript>
+<!-- End Of Analytics Code -->
+

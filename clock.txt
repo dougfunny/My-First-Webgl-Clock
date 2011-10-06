@@ -1,0 +1,162 @@
+ 
+<!DOCTYPE HTML>
+<html>
+   <head>
+ 
+<script src="kinetic-v1.0.0.js"> 
+</script>
+<script src="kinetic2d-v1.0.2.js"> 
+</script>
+<script>
+ 
+ 
+var kin;
+var myhour;
+var mymin;
+ 
+    
+ 
+             function Line(a, b, Lwidth, Lheight, LborderWidth,angle){
+               this.a = a;
+               this.b = b;
+               this.Lwidth = Lwidth;
+               this.Lheight = Lheight;
+               this.LborderWidth = LborderWidth;
+ 
+	       this.angle = angle;
+ 
+           }
+ 
+ 
+           function updateStage(){
+ 
+var currentTime    =  new Date ( );         
+var currentHours   =  currentTime.getHours ( );
+var currentMinutes =  currentTime.getMinutes ( );
+var currentSeconds =  currentTime.getSeconds ( );
+            
+mysec.angle  = currentSeconds;
+currentHours = ( currentHours > 12 ) ? currentHours - 12 : currentHours;
+myhour.angle = currentHours ;
+mymin.angle  = currentMinutes;
+ 
+ 
+           }
+ 
+               window.onload = function(){
+ 
+ 
+               var canvas = document.getElementById("myCanvas");
+               var context = canvas.getContext("2d");
+ 
+ 
+               kin = new Kinetic_2d("myCanvas");
+               mysec      = new Line(150,100,0,-35,1,0 );
+	       myhour     = new Line(150 ,100 ,-2 ,-45  ,2,0);
+	       mymin      = new Line(150,100, -1,-60,2,0);
+    
+ 
+               // set drawStage method
+               kin.setDrawStage(function(){
+ 
+ 
+updateStage();
+ 
+kin.clear();
+ 
+var context = kin.getContext();
+ 
+  
+ 
+//draw outer clock ring
+var centerX = 150;
+var centerY = 100;
+var radius = 70;
+context.beginPath();
+context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+context.lineWidth = 6;
+context.strokeStyle = "black";
+context.stroke();
+ 
+ 
+//smallCircle
+context.beginPath();
+context.arc(150, centerY, 2, 0, 2 * Math.PI, false);
+context.lineWidth = 6;
+context.strokeStyle = "black";
+context.stroke();
+ 
+ 
+ 
+//sechand
+context.save();
+context.beginPath();
+context.translate(mysec.a,mysec.b)
+context.rotate(mysec.angle/9.15);
+context.moveTo(0,0);
+context.lineTo(mysec.Lwidth,mysec.Lheight);
+context.lineWidth = mysec.LborderWidth;
+context.strokeStyle = "black";
+context.stroke();
+context.restore();
+ 
+//hourhand
+context.save();
+context.beginPath();
+context.translate(myhour.a,myhour.b)
+context.rotate(myhour.angle/1.9);
+context.moveTo(0,0);
+context.lineTo(myhour.Lwidth,myhour.Lheight);
+context.lineWidth = myhour.LborderWidth;
+context.strokeStyle = "black";
+context.stroke();
+context.restore();
+ 
+//minhand
+context.save();
+context.beginPath();
+context.translate(mymin.a,mymin.b)
+context.rotate(mymin.angle/9.35);
+context.moveTo(0,0);
+context.lineTo(mymin.Lwidth,mymin.Lheight);
+context.lineWidth = mymin.LborderWidth;
+context.strokeStyle = "black";
+context.stroke();
+context.restore();
+ 
+ 
+//Draw 12, 3 , 6, 9
+var x = 145;
+var y = 50;
+context.font = "10pt Calibri";
+context.fillText("12", x, y);
+context.fillText("3", 205, 100);
+context.fillText("6", x, 160);
+context.fillText("9", 90, 100);
+ 
+               });
+ 
+ 
+               kin.startAnimation();
+          
+ 
+ };
+           </script>
+ 
+ 
+ 
+ 
+     </head>
+     <body onmousedown="return false;" >
+       
+     <canvas id="myCanvas" width="300" height="200">
+     </canvas>
+ 
+     </body>
+     </html>
+ 
+<!-- www.000webhost.com Analytics Code -->
+<script type="text/javascript" src="http://analytics.hosting24.com/count.php"></script>
+<noscript><a href="http://www.hosting24.com/"><img src="http://analytics.hosting24.com/count.php" alt="web hosting" /></a></noscript>
+<!-- End Of Analytics Code -->
+
