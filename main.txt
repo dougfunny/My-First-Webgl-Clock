@@ -1,4 +1,4 @@
-<<!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html>
   <head>
 
@@ -146,11 +146,20 @@ function doKeyDown(evt){
                hypTriangle    = new Line(320 ,220 ,500 ,300  ,5);
 
 
-              squareXSide = new Square(500,300, 500,90,5);                  
+               oppTriangle2    = new Line(350,180,300, 250,5 );
 
-             squareYSide = new Square(200,300, 200,90,5);	
+
+               adjTriangle2    = new Line(400 ,253 ,300 , 250  ,5);
+
+
+               hypTriangle2    = new Line(350 ,250 ,201 , 180  ,5);
+
+
+              squareXSide = new Square(500,300, 500,90,5);                
+
+              squareYSide = new Square(200,300, 200,90,5);	
       
-             squareZSide = new Square(200,90, 500,90,5);	
+              squareZSide = new Square(200, 90, 500,90,5);	
  
              squareQSide = new Square(200,300, 500,300,5);	
 
@@ -170,6 +179,7 @@ var context = kin.getContext();
 //opp side of trianlge
 
   context.beginPath();
+  
   context.lineWidth = oppTriangle.LborderWidth;
   context.moveTo(oppTriangle.a,oppTriangle.b);
   context.lineTo( oppTriangle.Lwidth, oppTriangle.Lheight);
@@ -194,8 +204,23 @@ var context = kin.getContext();
   context.lineTo( hypTriangle.Lwidth, hypTriangle.Lheight);
   context.stroke();
 
+var x=0;
+var y =0;
 
 
+
+DrawSqaure();
+
+ DrawTriangle();
+ 
+              });
+              kin.startAnimation();
+
+
+
+
+
+function DrawSqaure(){
 //Square Right Side      X
 
   context.beginPath();
@@ -228,10 +253,45 @@ var context = kin.getContext();
   context.lineTo( squareQSide.Sqwidth, squareQSide.Sqheight);
   context.stroke();
 
+}
+
+//Draw Triangle
+
+function DrawTriangle(){
+//opp side of trianlge
+
+  context.beginPath();
+  context.lineWidth = oppTriangle2.LborderWidth;
+  context.moveTo(oppTriangle2.a,oppTriangle2.b);
+  context.lineTo( oppTriangle2.Lwidth, oppTriangle2.Lheight);
+  context.stroke();
 
 
-              });
-              kin.startAnimation();
+//adj side of trianlge
+
+
+  context.beginPath();
+  context.lineWidth = adjTriangle2.LborderWidth;
+  context.moveTo(adjTriangle2.a,adjTriangle2.b);
+  context.lineTo( adjTriangle2.Lwidth, adjTriangle2.Lheight);
+  context.stroke();
+
+
+//hyp side of trianlge
+
+  context.beginPath();
+  context.lineWidth = hypTriangle2.LborderWidth;
+  context.moveTo(hypTriangle2.a,hypTriangle2.b);
+  context.lineTo( hypTriangle2.Lwidth, hypTriangle2.Lheight);
+  context.stroke();
+
+
+}
+
+
+
+
+
 
 
           };
