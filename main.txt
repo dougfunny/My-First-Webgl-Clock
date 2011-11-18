@@ -1,76 +1,252 @@
-<!DOCTYPE HTML>  
-<html> 
-    <head>  
-    <link rel="stylesheet" href="stick.css" type="text/css"> 
-    <script src="http://www.html5canvastutorials.com/libraries/kinetic2d-v1.0.5.js"></script> 
-    <script> 
-            var armWidth = 160; 
-            var armHeight = 10; 
+<<!DOCTYPE HTML>
+<html>
+  <head>
+
+      <script src="kinetic-v1.0.0.js">
+      </script>
+      <script
+src="http://www.html5canvastutorials.com/libraries/kinetic2d-v1.0.2.js">
+      </script>
+      <script>
+
+          var kin;
+          var myLine;
+          var Theta = 0;
+
+
+          function Square(X, Y, Sqwidth, Sqheight, SqBW){
+              this.X = X;
+              this.Y = Y;
+              this.SqBW = SqBW;
+              this.Sqwidth = Sqwidth;
+              this.Sqheight = Sqheight;
+
+
+          }
+
+            function Line(a, b, Lwidth, Lheight, LborderWidth){
+              this.a = a;
+              this.b = b;
+              this.Lwidth = Lwidth;
+              this.Lheight = Lheight;
+              this.LborderWidth = LborderWidth;
+
+             }
+
+var x = r * Math.cos(angle);
+var y = r * Math.sin(angle);
+
+var r = Math.sqrt((x*x) + (y*y));
+var angle =   Math.atan2(y/x);
+
+
+function doKeyDown(evt){
+
+
+ switch (evt.keyCode) {
+
+
+   case 65:  /* A arrow was pressed */
+               {
+      
+
+
+     }
+     break;
+    case 66:  /* B arrow was pressed */
+               {
+      
+
+
+     }
+     break;
+ case 67:  /* C arrow was pressed */
+               {
+      
+
+
+     }
+     break;
+
+
+ }
+}
+
+
+
+
+          function updateStage(){
+
+
+
+
+//opposite side move
+       var  oppTriangleamplitude = 19;
+
+       var  oppTriangley = 0;
+
+       var period = 500; // in ms
+
+        oppTriangley = kin.getCanvas().height / 2 -  oppTriangle.Lheight / 2;
+
+       var nextX =  oppTriangleamplitude * Math.sin(kin.getTime() * 2 *Math.PI / period)+  oppTriangley;
+
+        oppTriangle.Lheight = nextX;
+//adjacent side move       
+       var  adjTriangleamplitude = 19;
+
+       var  adjTriangley = 0;
+
+       var period = 500; // in ms
+
+        adjTriangley = kin.getCanvas().height / 2 -  adjTriangle.Lheight / 2;
+
+       var nextX =  adjTriangleamplitude * Math.sin(kin.getTime() * 2 *Math.PI / period)+  adjTriangley;
+
+        adjTriangle.Lheight = nextX;
+
+//hypotonues side move       
+       var  hypTriangleamplitude = 19;
+
+       var  hypTriangley = 0;
+
+       var period = 500; // in ms
+
+        hypTriangley = kin.getCanvas().height / 2 -  hypTriangle.Lheight / 2;
+
+       var nextX =  hypTriangleamplitude * Math.sin(kin.getTime() * 2 *Math.PI / period)+ hypTriangley;
+
+        hypTriangle.Lheight = nextX;
+
+       
+
+
+
+
+
+
+          }
+
+              window.onload = function(){
+              var canvas = document.getElementById("myCanvas");
+              var context = canvas.getContext("2d");
+
+             window.addEventListener('keydown',doKeyDown,true);
+              kin = new Kinetic_2d("myCanvas");
+
+
+
+
+               oppTriangle    = new Line(750,150,300,300,5 );
+
+
+               adjTriangle    = new Line(125 ,0 ,0 ,50  ,5);
+
+
+               hypTriangle    = new Line(320 ,220 ,500 ,300  ,5);
+
+
+              squareXSide = new Square(500,300, 500,90,5);                  
+
+             squareYSide = new Square(200,300, 200,90,5);	
+      
+             squareZSide = new Square(200,90, 500,90,5);	
  
-            function drawArm(x, y) 
-            { 
-                this.x = x; 
-                this.y = y; 
-                this.width = armWidth; 
-                this.height = armHeight; 
-                context.fillRect(-armWidth / 2, -armHeight / 2, armWidth, armHeight); 
-            } 
- 
-            function init() 
-            { 
-               canvas = document.getElementById("stickScene"); 
-               context = canvas.getContext("2d"); 
-               // More initialization stuff should go here. 
-               // I could have put armWidth and armHeight in here too. 
-            } 
- 
-            function run() 
-            { 
-                // Update parameters here. 
-                // Call this function at every iteration of the animation. 
-                // Notice the js library that I included and didn't use - details in the reading 
-            } 
- 
-            window.onload = function() { 
-               init(); 
- 
-               // save state 1 
-               context.save(); 
-               // translate to the center of the canvas 
-               context.translate( canvas.width/2, canvas.height/2 ); 
- 
-               // save state 2 
-               context.save(); 
-               // grow arm by 20% 
-               context.scale( 1.2, 1.2 ); 
- 
-               // save state 3 
-               context.save();  
-               // rotate by 30 degress clockwise 
-               context.rotate( Math.PI / 6 ); 
- 
-               // draw arm using state 3 
-               drawArm( 0,0 ); 
- 
-               context.restore(); 
-               context.restore(); 
-               // draw arm using state 1 
-               drawArm( 0,0 ); 
- 
-               context.restore(); 
-               // draw arm without the stack 
-               drawArm( 0,0 ); 
- 
-               // Advice: Organize the inline block of code from here 
-               // until 'init()' just above into hierarchical routines. 
-               //  
-               // Also note that I'm always calling drawArm with the place-holder 
-               // argument of (0,0); that's useless.  Instead, I could 
-               // have passed the final destination coordinate. 
-            }; 
-        </script>  
-    </head>  
-    <body onmousedown="return false;">  
-        <canvas id="stickScene" width="960" height="640"></canvas>  
-    </body> 
+             squareQSide = new Square(200,300, 500,300,5);	
+
+              // set drawStage method
+              kin.setDrawStage(function(){
+
+
+
+
+updateStage();
+kin.clear();
+
+var context = kin.getContext();
+
+
+
+//opp side of trianlge
+
+  context.beginPath();
+  context.lineWidth = oppTriangle.LborderWidth;
+  context.moveTo(oppTriangle.a,oppTriangle.b);
+  context.lineTo( oppTriangle.Lwidth, oppTriangle.Lheight);
+  context.stroke();
+
+
+//adj side of trianlge
+
+
+  context.beginPath();
+  context.lineWidth = adjTriangle.LborderWidth;
+  context.moveTo(adjTriangle.a,adjTriangle.b);
+  context.lineTo( adjTriangle.Lwidth, adjTriangle.Lheight);
+  context.stroke();
+
+
+//hyp side of trianlge
+
+  context.beginPath();
+  context.lineWidth = hypTriangle.LborderWidth;
+  context.moveTo(hypTriangle.a,hypTriangle.b);
+  context.lineTo( hypTriangle.Lwidth, hypTriangle.Lheight);
+  context.stroke();
+
+
+
+//Square Right Side      X
+
+  context.beginPath();
+  context.lineWidth = squareXSide.SqBW;
+  context.moveTo(squareXSide.X,squareXSide.Y);
+  context.lineTo( squareXSide.Sqwidth, squareXSide.Sqheight);
+  context.stroke();
+
+//Square Left Side      Y
+
+  context.beginPath();
+  context.lineWidth = squareYSide.SqBW;
+  context.moveTo(squareYSide.X,squareYSide.Y);
+  context.lineTo( squareYSide.Sqwidth, squareYSide.Sqheight);
+  context.stroke();
+
+//Square Top Side       Z  
+
+  context.beginPath();
+  context.lineWidth = squareZSide.SqBW;
+  context.moveTo(squareZSide.X,squareZSide.Y);
+  context.lineTo( squareZSide.Sqwidth, squareZSide.Sqheight);
+  context.stroke();
+
+//Square Bottom Side   Q
+
+  context.beginPath();
+  context.lineWidth = squareQSide.SqBW;
+  context.moveTo(squareQSide.X,squareQSide.Y);
+  context.lineTo( squareQSide.Sqwidth, squareQSide.Sqheight);
+  context.stroke();
+
+
+
+              });
+              kin.startAnimation();
+
+
+          };
+
+
+
+
+
+
+
+          </script>
+</head>
+<body onmousedown="return false;">
+<canvas id="myCanvas" width="508" height="540">
+
+</canvas>
+</body>
 </html>
