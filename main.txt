@@ -10,8 +10,8 @@ src="http://www.html5canvastutorials.com/libraries/kinetic2d-v1.0.2.js">
       <script>
 
           var kin;
-          var myLine;
-          var Theta = 0;
+   var x =320;
+          
 
 
           function Square(X, Y, Sqwidth, Sqheight, SqBW){
@@ -87,14 +87,17 @@ function doKeyDown(evt){
 //MOVING TRIANGLE SIDES 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 //LEFT 
-                     //oppTriangle       = new Line(398,180,280,325,5 );      //END     POSITION
+                      //oppTriangle       = new Line(398,180,280,325,5 );      //END     POSITION
                        oppTriangle       = new Line( 450,220,311,300,5 );      //START POSITION
 //BOTTOM
-                    //adjTriangle          = new Line(284, 323, 500,323,5);     //END    POSITION  
-                      adjTriangle          =  new Line (125 ,0 ,0 ,50  ,5);          //START POSITION
+                    // adjTriangle          = new Line(284, 323, 500,323,5);     //END    POSITION  
+                     adjTriangle          =  new Line (125 ,0 ,0 ,50  ,5);          //START POSITION
 //RIGHT
-                    //hypTriangle         = new Line (398 ,185 ,505 ,325  ,5);   //END    POSITION
-                     hypTriangle          = new Line (320 ,220 ,500 ,300  ,5);   //START POSITION
+                   
+//  hypTriangle         = new Line (398 ,185 ,505 ,325  ,5);   //END    POSITION
+
+  hypTriangle          = new Line (x ,220 ,500 ,300  ,5);   //START POSITION
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //SMALL TRIANGLE
@@ -122,15 +125,15 @@ var context = kin.getContext();
 
  var canvas = kin.getCanvas();
     
-  
  
  
  
+    
    DrawTriangleFlyX(canvas,context); 
    DrawTriangleFlyY(canvas,context); 
    DrawTriangleFlyZ(canvas,context); 
-   //DrawSqaure(canvas,context);
-  //DrawTriangle(canvas,context);
+   DrawSqaure(canvas,context);
+   DrawTriangle(canvas,context);
  
               });
               kin.startAnimation();
@@ -214,6 +217,7 @@ function DrawTriangleFlyX(canvas,context){
 
 //opp side of trianlge
 
+ 
   context.beginPath();
   context.lineWidth = oppTriangle.LborderWidth;
   context.moveTo(oppTriangle.a,oppTriangle.b);
