@@ -33,12 +33,7 @@ src="http://www.html5canvastutorials.com/libraries/kinetic2d-v1.0.2.js">
 
              }
 
-var x = r * Math.cos(angle);
-var y = r * Math.sin(angle);
-
-var r = Math.sqrt((x*x) + (y*y));
-var angle =   Math.atan2(y/x);
-
+ 
 
 function doKeyDown(evt){
 
@@ -78,94 +73,45 @@ function doKeyDown(evt){
           function updateStage(){
 
 
-
-
-//opposite side move
-       var  oppTriangleamplitude = 19;
-
-       var  oppTriangley = 0;
-
-       var period = 500; // in ms
-
-        oppTriangley = kin.getCanvas().height / 2 -  oppTriangle.Lheight / 2;
-
-       var nextX =  oppTriangleamplitude * Math.sin(kin.getTime() * 2 *Math.PI / period)+  oppTriangley;
-
-        oppTriangle.Lheight = nextX;
-//adjacent side move       
-       var  adjTriangleamplitude = 19;
-
-       var  adjTriangley = 0;
-
-       var period = 500; // in ms
-
-        adjTriangley = kin.getCanvas().height / 2 -  adjTriangle.Lheight / 2;
-
-       var nextX =  adjTriangleamplitude * Math.sin(kin.getTime() * 2 *Math.PI / period)+  adjTriangley;
-
-        adjTriangle.Lheight = nextX;
-
-//hypotonues side move       
-       var  hypTriangleamplitude = 19;
-
-       var  hypTriangley = 0;
-
-       var period = 500; // in ms
-
-        hypTriangley = kin.getCanvas().height / 2 -  hypTriangle.Lheight / 2;
-
-       var nextX =  hypTriangleamplitude * Math.sin(kin.getTime() * 2 *Math.PI / period)+ hypTriangley;
-
-        hypTriangle.Lheight = nextX;
-
-       
-
-
-
-
-
-
           }
 
               window.onload = function(){
               var canvas = document.getElementById("myCanvas");
               var context = canvas.getContext("2d");
-
+ 
              window.addEventListener('keydown',doKeyDown,true);
               kin = new Kinetic_2d("myCanvas");
 
 
 
+//MOVING TRIANGLE SIDES 
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+//LEFT 
+                     //oppTriangle       = new Line(398,180,280,325,5 );      //END     POSITION
+                       oppTriangle       = new Line( 450,220,311,300,5 );      //START POSITION
+//BOTTOM
+                    //adjTriangle          = new Line(284, 323, 500,323,5);     //END    POSITION  
+                      adjTriangle          =  new Line (125 ,0 ,0 ,50  ,5);          //START POSITION
+//RIGHT
+                    //hypTriangle         = new Line (398 ,185 ,505 ,325  ,5);   //END    POSITION
+                     hypTriangle          = new Line (320 ,220 ,500 ,300  ,5);   //START POSITION
+///////////////////////////////////////////////////////////////////////////////////////////////////////
 
-               oppTriangle    = new Line(750,150,300,300,5 );
-
-
-               adjTriangle    = new Line(125 ,0 ,0 ,50  ,5);
-
-
-               hypTriangle    = new Line(320 ,220 ,500 ,300  ,5);
-
-
-               oppTriangle2    = new Line(350,180,300, 250,5 );
-
-
-               adjTriangle2    = new Line(400 ,253 ,300 , 250  ,5);
-
-
-               hypTriangle2    = new Line(350 ,250 ,201 , 180  ,5);
-
-
-              squareXSide = new Square(500,300, 500,90,5);                
-
-              squareYSide = new Square(200,300, 200,90,5);	
-      
-              squareZSide = new Square(200, 90, 500,90,5);	
- 
-             squareQSide = new Square(200,300, 500,300,5);	
+//SMALL TRIANGLE
+               oppTriangle2     = new Line(400,230,350, 300,5 );
+               adjTriangle2      = new Line(450 ,300 ,350 , 300  ,5);
+               hypTriangle2     = new Line(450 ,300 ,396 , 231  ,5);
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+//SIDES OF THE SQUARE            
+              squareXSide = new Square(600,400, 600,90,5);	              
+              squareYSide = new Square(200,400, 200,90,5);	
+              squareZSide = new Square(200, 90, 600,90,5);	
+              squareQSide = new Square(200,400, 600,400,5);	
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+   context.restore();
 
               // set drawStage method
               kin.setDrawStage(function(){
-
 
 
 
@@ -174,44 +120,17 @@ kin.clear();
 
 var context = kin.getContext();
 
-
-
-//opp side of trianlge
-
-  context.beginPath();
+ var canvas = kin.getCanvas();
+    
   
-  context.lineWidth = oppTriangle.LborderWidth;
-  context.moveTo(oppTriangle.a,oppTriangle.b);
-  context.lineTo( oppTriangle.Lwidth, oppTriangle.Lheight);
-  context.stroke();
-
-
-//adj side of trianlge
-
-
-  context.beginPath();
-  context.lineWidth = adjTriangle.LborderWidth;
-  context.moveTo(adjTriangle.a,adjTriangle.b);
-  context.lineTo( adjTriangle.Lwidth, adjTriangle.Lheight);
-  context.stroke();
-
-
-//hyp side of trianlge
-
-  context.beginPath();
-  context.lineWidth = hypTriangle.LborderWidth;
-  context.moveTo(hypTriangle.a,hypTriangle.b);
-  context.lineTo( hypTriangle.Lwidth, hypTriangle.Lheight);
-  context.stroke();
-
-var x=0;
-var y =0;
-
-
-
-DrawSqaure();
-
- DrawTriangle();
+ 
+ 
+ 
+   DrawTriangleFlyX(canvas,context); 
+   DrawTriangleFlyY(canvas,context); 
+   DrawTriangleFlyZ(canvas,context); 
+   //DrawSqaure(canvas,context);
+  //DrawTriangle(canvas,context);
  
               });
               kin.startAnimation();
@@ -220,7 +139,7 @@ DrawSqaure();
 
 
 
-function DrawSqaure(){
+function DrawSqaure(canvas,context){
 //Square Right Side      X
 
   context.beginPath();
@@ -257,7 +176,7 @@ function DrawSqaure(){
 
 //Draw Triangle
 
-function DrawTriangle(){
+function DrawTriangle(canvas,context){
 //opp side of trianlge
 
   context.beginPath();
@@ -290,9 +209,54 @@ function DrawTriangle(){
 
 
 
+function DrawTriangleFlyX(canvas,context){
+
+
+//opp side of trianlge
+
+  context.beginPath();
+  context.lineWidth = oppTriangle.LborderWidth;
+  context.moveTo(oppTriangle.a,oppTriangle.b);
+  context.lineTo( oppTriangle.Lwidth, oppTriangle.Lheight);
+  context.stroke();
+ 
+
+}
 
 
 
+function DrawTriangleFlyY(canvas,context){
+
+
+ 
+
+
+//adj side of trianlge
+
+  context.beginPath();
+  context.lineWidth = adjTriangle.LborderWidth;
+  context.moveTo(adjTriangle.a,adjTriangle.b);
+  context.lineTo( adjTriangle.Lwidth,adjTriangle.Lheight);
+  context.stroke();
+ 
+
+}
+function DrawTriangleFlyZ(canvas,context){
+
+
+ 
+
+
+//hyp side of trianlge
+
+  context.beginPath();
+  context.lineWidth = hypTriangle.LborderWidth;
+  context.moveTo(hypTriangle.a,hypTriangle.b);
+  context.lineTo( hypTriangle.Lwidth, hypTriangle.Lheight);
+  context.stroke();
+ 
+
+}
 
           };
 
@@ -305,7 +269,7 @@ function DrawTriangle(){
           </script>
 </head>
 <body onmousedown="return false;">
-<canvas id="myCanvas" width="508" height="540">
+<canvas id="myCanvas" width="808" height="840">
 
 </canvas>
 </body>
